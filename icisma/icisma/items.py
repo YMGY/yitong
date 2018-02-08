@@ -8,7 +8,29 @@
 import scrapy
 
 
-class IcismaItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class IcisMaItem(scrapy.Item):
+    DisplaySeriesId = scrapy.Field()
+    ReportDate = scrapy.Field()
+    StandardReportDate = scrapy.Field()
+    CommodityName = scrapy.Field()
+    LocationName = scrapy.Field()
+    UnitDisplay = scrapy.Field()
+    PriceDeltaLow = scrapy.Field()
+    PriceDeltaValueLow = scrapy.Field()
+    PriceLow = scrapy.Field()
+    PriceDeltaHigh = scrapy.Field()
+    PriceDeltaValueHigh = scrapy.Field()
+    PriceHigh = scrapy.Field()
+    PriceDeltaMid = scrapy.Field()
+    PriceDeltaValueMid = scrapy.Field()
+    PriceMid = scrapy.Field()
+    Volatility = scrapy.Field()
+    Volume = scrapy.Field()
+    NumberOfTrades = scrapy.Field()
+    IsEnergy = scrapy.Field()
+    Name = scrapy.Field()
+    DeliveryPeriod = scrapy.Field()
+    TradeTypes = scrapy.Field()
+    DomainTypeFlagValue = scrapy.Field()
+    TransportName = scrapy.Field()
+    QuotationComments = scrapy.Field()
