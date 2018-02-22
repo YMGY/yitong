@@ -14,8 +14,7 @@ class IcisbenPipeline(object):
     db_name = 'ccf'
 
     def process_item(self, item, spider):
-        oldItem = self.db[self.collection_name].find_one(
-            {'name': item['name'], 'market': item['market'], 'publishDate': item['publishDate']})
+        oldItem = self.db[self.collection_name].find_one({'Name': item['Name'], 'ReportDate': item['ReportDate']})
         if not oldItem:
             self.db[self.collection_name].insert_one(dict(item))
         return item

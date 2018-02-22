@@ -10,11 +10,13 @@ from settings import MONGODB
 
 
 class CcfPipeline(object):
-    collection_name = 'icisBen'
-    db_name = 'icis'
+    collection_name = 'recycledfiber'
+    db_name = 'ccf'
 
     def process_item(self, item, spider):
-        oldItem = self.db[self.collection_name].find_one({'Name': item['Name'], 'ReportDate': item['ReportDate']})
+        oldItem = self.db[self.collection_name].find_one({'name': item['name'],
+                                                          'market': item['market'],
+                                                          'publishDate': item['publishDate']})
         if not oldItem:
             self.db[self.collection_name].insert_one(dict(item))
         return item

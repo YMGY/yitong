@@ -7,6 +7,8 @@ import string
 
 from scrapy import Spider, FormRequest, Request, Selector
 
+from ccf.items import CcfItem
+
 
 class ccfDatePrice(Spider):
     name = 'ccfDatePrice'
@@ -72,17 +74,44 @@ class ccfDatePrice(Spider):
         alist = response.xpath(
             '//div[@id="informsleft2015"]//div[@class="divleftwidth982015 tablegrayborderthree"]/div[@class="tabBox"]').extract()
         ## 取第二个div
+        p1 = unicode('原油石化芳烃类', 'utf-8')
         if len(alist) > 2:
             reportDiv = Selector(text=alist[1])
-            chenReport=reportDiv.xpath('//div').extract()[7]
-            chenReportSelector=Selector(text=chenReport).xpath('@//a').extract()
+            chenReport = reportDiv.xpath('//div').extract()[7]
+            chenReportSelector = Selector(text=chenReport).xpath('//a').extract()
             for alink in chenReportSelector:
-                print(alink)
-
-
-        p1 = '原油石化芳烃类'
+                if alink.find(p1, 0, len(alink)) > -1:
+                    sAlink = Selector(text=alink).xpath('//a/@href').extract()
+                    if len(sAlink) == 1:
+                        yield Request(
+                            url='http://www.ccf.com.cn' + sAlink[0],
+                            meta={'cookiejar': response.meta['cookiejar']},
+                            callback=self.parse
+                        )
 
     def parse(self, response):
-        body = json.loads(response.body_as_unicode())
-        if not body:
-            return
+        table = response.xpath('//table[@class="tb_2017v"]/tbody/tr').extract()
+        firstRowName = ''
+        if len(table) > 0:
+            firstRow = True
+            publishDate = ''
+            for tr in table:
+                if firstRow:
+                    firstRow = False
+                    firstTr = Selector(text=tr).xpath('//tr/td').extract()
+                    publishDate = firstTr[3]
+                    continue
+
+                tdLst = Selector(text=tr).xpath('//tr/td/text()').extract()
+
+                if len(tdLst) == 6:
+                    firstRowName = tdLst[0]
+                    del tdLst[0]
+
+                ccfItem = CcfItem()
+                ccfItem['name'] = firstRowName
+                ccfItem['market'] = tdLst[0]
+                ccfItem['publishDate'] = publishDate
+                ccfItem['price'] = tdLst[2]
+                ccfItem['unit'] = tdLst[4]
+                yield ccfItem

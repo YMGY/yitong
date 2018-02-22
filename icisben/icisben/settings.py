@@ -23,6 +23,10 @@ ROBOTSTXT_OBEY = False
 
 REDIRECT_ENABLED = False
 HTTPERROR_ALLOWED_CODES = [302]
+
+LOG_LEVEL= 'WARN'
+
+LOG_FILE ='log.txt'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -91,6 +95,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 MONGODB = {
-    'host': "localhost",
+    'host': "192.168.61.136",
     'port': 27017
 }

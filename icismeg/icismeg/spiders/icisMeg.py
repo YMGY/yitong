@@ -4,7 +4,7 @@ import json
 
 from scrapy import Spider, FormRequest, Request
 
-from items import IcisMegItem
+from icismeg.items import IcisMegItem
 
 
 class icisMeg(Spider):

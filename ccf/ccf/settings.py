@@ -14,6 +14,10 @@ BOT_NAME = 'ccf'
 SPIDER_MODULES = ['ccf.spiders']
 NEWSPIDER_MODULE = 'ccf.spiders'
 
+LOG_LEVEL= 'WARN'
+
+LOG_FILE ='log.txt'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'ccf (+http://www.yourdomain.com)'
 
@@ -64,9 +68,9 @@ HTTPERROR_ALLOWED_CODES = [302, 301]
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'ccf.pipelines.CcfPipeline': 300,
-# }
+ITEM_PIPELINES = {
+   'ccf.pipelines.CcfPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -89,6 +93,6 @@ HTTPERROR_ALLOWED_CODES = [302, 301]
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 MONGODB = {
-    'host': "localhost",
+    'host': "192.168.61.136",
     'port': 27017
 }

@@ -4,7 +4,7 @@ import json
 
 from scrapy import Spider, FormRequest, Request
 
-from items import IcisMaItem
+from icisma.items import IcisMaItem
 
 
 class icisMa(Spider):
